@@ -27,11 +27,18 @@ BBGWelcomePage >> pageTitle [
 
 { #category : #rendering }
 BBGWelcomePage >> renderPageContentOn: html [
-	html
-		unorderedList: [ (BBGTeamPage allSubclasses sorted: #priority ascending)
+	html div
+		style: 'display: flex;flex-wrap: wrap; justify-content: space-around; align-items: center;';
+		with: [ (BBGTeamPage allSubclasses sorted: #priority ascending)
 				do: [ :class | 
-					html
-						listItem: [ html anchor
+					html div
+						class: 'gallery';
+						style: 'max-width: 30%';
+						shadow: 8;
+						with: [ html anchor
 								callback: [ self displayInstanceOf: class ];
-								with: class pageName, ' team' ] ] ]
+								with: [ html image url: (BBGLibrary default urlForFile: class new teamPlayers anyOne key) ].
+							html div
+								class: 'desc';
+								with: class pageName ] ] ]
 ]

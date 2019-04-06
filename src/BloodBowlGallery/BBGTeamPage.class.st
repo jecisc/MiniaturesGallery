@@ -94,6 +94,7 @@ BBGTeamPage >> pageTitle [
 BBGTeamPage >> renderGalleryTitled: aString img: anImage back: anotherImg on: html [
 	html div
 		class: 'gallery gallery2';
+		shadow: 6;
 		with: [ html anchor
 				url: (BBGLibrary default urlForFile: anImage);
 				with: [ html image url: (BBGLibrary default urlForFile: anImage) ].
@@ -109,6 +110,7 @@ BBGTeamPage >> renderGalleryTitled: aString img: anImage back: anotherImg on: ht
 BBGTeamPage >> renderGalleryTitled: aString img: anImage on: html [
 	html div
 		class: 'gallery';
+		shadow: 6;
 		with: [ html anchor
 				url: (BBGLibrary default urlForFile: anImage);
 				with: [ html image url: (BBGLibrary default urlForFile: anImage) ].
@@ -124,21 +126,21 @@ BBGTeamPage >> renderPageContentOn: html [
 		mdlTypographySubhead;
 		with: 'Team'.
 	html div
-		style: 'display: flex;flex-wrap: wrap;';
+		style: 'display: flex;flex-wrap: wrap;justify-content: space-around; align-items: center;';
 		with: [ self teamImages keysAndValuesDo: [ :title :img | self renderGalleryTitled: title img: img on: html ] ].
 	html heading
 		level2;
 		mdlTypographySubhead;
 		with: 'Positions'.
 	html div
-		style: 'display: flex;flex-wrap: wrap;';
+		style: 'display: flex;flex-wrap: wrap;justify-content: space-around; align-items: center;';
 		with: [ self teamGroups keysAndValuesDo: [ :title :img | self renderGalleryTitled: title img: img on: html ] ].
 	html heading
 		level2;
 		mdlTypographySubhead;
 		with: 'Players'.
 	html div
-		style: 'display: flex;flex-wrap: wrap;';
+		style: 'display: flex;flex-wrap: wrap;justify-content: space-around; align-items: center;';
 		with: [ self teamPlayers
 				keysAndValuesDo: [ :title :imgs | 
 					self
