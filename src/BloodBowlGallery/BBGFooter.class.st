@@ -12,7 +12,11 @@ Class {
 
 { #category : #accessing }
 BBGFooter >> links [
-	^ OrderedDictionary with: 'Personnal website' -> 'https://ferlicot.fr' with: 'Powered by Seaside' -> 'https://github.com/SeasideSt/Seaside'
+	^ OrderedDictionary
+		with: 'Personnal website' -> 'https://ferlicot.fr'
+		with: 'Powered by Seaside' -> 'https://github.com/SeasideSt/Seaside'
+		with: 'Farine miniatures' -> 'https://farineminiatures.wordpress.com/'
+		with: 'Berserk elf' -> 'http://theberserkelf.over-blog.com/'
 ]
 
 { #category : #rendering }
