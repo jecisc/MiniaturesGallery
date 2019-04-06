@@ -42,6 +42,27 @@ BBGPage class >> priority [
 ]
 
 { #category : #accessing }
+BBGPage >> pageTitle [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 BBGPage >> pathName [
 	^ self class pathName
+]
+
+{ #category : #rendering }
+BBGPage >> renderContentOn: html [
+	html div
+		style: 'max-width: 1250px; min-height: 600px; margin: 0 auto; padding: 20px 8px; background-color: rgba(255,255,255,0.95); overflow: auto';
+		with: [ html heading
+				level2;
+				mdlTypographyTitle;
+				with: self pageTitle.
+			self renderPageContentOn: html ]
+]
+
+{ #category : #rendering }
+BBGPage >> renderPageContentOn: html [
+	self subclassResponsibility
 ]

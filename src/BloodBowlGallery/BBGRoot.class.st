@@ -40,9 +40,10 @@ BBGRoot class >> canBeRoot [
 
 { #category : #initialization }
 BBGRoot class >> initialize [
-		self environment at: #WADevelopmentConfiguration ifPresent: [ :class | WAAdmin applicationDefaults removeParent: class instance ]. "Remove development tools."
+	self environment at: #WADevelopmentConfiguration ifPresent: [ :class | WAAdmin applicationDefaults removeParent: class instance ].	"Remove development tools."
 	^ (WAAdmin register: self asApplicationAt: self applicationName)
 		preferenceAt: #sessionClass put: BBGSession;
+		preferenceAt: #trackingStrategy put: WACookieForBrowserIPForCrawlerTrackingStrategy new;
 		addLibrary: JQDeploymentLibrary;
 		addLibrary: MDLLibrary;
 		addLibrary: BBGLibrary;
@@ -58,7 +59,17 @@ BBGRoot class >> menuCommandOn: aBuilder [
 				order: 2;
 				iconName: #nautilus;
 				help: 'Open in the default web browser';
-				action: [ self open ] ]
+				action: [ self open ].
+				(aBuilder item: #'Import example')
+				order: 4;
+				iconName: #smallHelp;
+				action: [GTPlayground openContents: '"The images need to be in the image directory"
+
+BBGKhemriPage
+	extension: ''JPG''
+	team: #(''1418'' ''1419'' ''1420'') 
+	groups: { ''Tomb Guardians'' -> ''1415'' . ''Blitz-ras and Throw-ras'' -> ''1416'' . ''Skeletons'' -> ''1417'' } asOrderedDictionary
+	players: (((1369 to: 1380) pairsCollect: [ :a :b | a asString -> b asString ]) , ((1395 to: 1414) pairsCollect: [ :a :b | a asString -> b asString ])) asOrderedDictionary'] ]
 ]
 
 { #category : #'instance creation' }
@@ -189,7 +200,7 @@ BBGRoot >> renderContentOn: html [
 BBGRoot >> updateRoot: anHtmlRoot [
 	super updateRoot: anHtmlRoot.
 	anHtmlRoot beHtml5.
-	anHtmlRoot title: 'Cyril Ferlicot''s Blood Bowl Gallery.'.
+	anHtmlRoot title: 'Cyril Ferlicot''s Blood Bowl Gallery'.
 	anHtmlRoot meta
 		attributeAt: 'name' put: 'viewport';
 		content: 'width=device-width, initial-scale=1'

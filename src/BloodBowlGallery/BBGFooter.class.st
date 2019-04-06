@@ -17,8 +17,7 @@ BBGFooter >> links [
 
 { #category : #rendering }
 BBGFooter >> renderContentOn: html [
-	html
-		mdlMiniFooter: [ html
+	html mdlMiniFooter: [ html
 				mdlMiniFooterLeftSection: [ html mdlLogo: 'Blood Bowl Gallery'.
 					html
 						mdlMiniFooterLinkList: [ self links

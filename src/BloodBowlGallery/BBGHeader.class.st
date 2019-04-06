@@ -22,11 +22,10 @@ BBGHeader >> renderContentOn: html [
 			html
 				mdlLayoutHeaderRow: [ 
 					html mdlNavigationLink
-						callback: [ "Just refresh" ];
+						callback: [ self displayInstanceOf: BBGWelcomePage ];
 						with: [ html
-								mdlLayoutTitle: 'Cyril Ferlicot''s Blood Bowl Gallery.' ].
-					html mdlLayoutSpacer.
-					html text: 'Version 0.0.0'. ] ].
+								mdlLayoutTitle: 'Cyril Ferlicot''s Blood Bowl Gallery' ].
+					html mdlLayoutSpacer ] ].
 	self renderDrawerOn: html
 ]
 
