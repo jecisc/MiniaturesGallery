@@ -156,5 +156,5 @@ BBGTeamPage >> teamPlayers [
 
 { #category : #accessing }
 BBGTeamPage >> urlOf: anImage [
-	^ (BBGRoot isDevelopment ifTrue: [ '//localhost:1706/' ] ifFalse: [ '' ]) , 'resources/' , self pageTitle asLowercase , '/' , anImage
+	^ (BBGRoot isDevelopment ifTrue: [ '//localhost:1706/' ] ifFalse: [ '/' ]) , 'resources/' , self pageTitle asLowercase , '/' , anImage
 ]
