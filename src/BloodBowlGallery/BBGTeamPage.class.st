@@ -6,20 +6,14 @@ Class {
 
 { #category : #import }
 BBGTeamPage class >> extension: extension team: aCollection groups: aCollection3 players: aCollection4 [
-	| imagesToImport count |
-	imagesToImport := OrderedCollection new.
+	| count |
 	self
 		compile:
 			('teamImages
 	^ OrderedDictionary
 		with: ''Full team'' -> ''{1}''
 		with: ''Full team from top'' -> ''{2}''
-		with: ''Full team from back'' -> ''{3}'''
-				format:
-					(aCollection
-						collect: [ :each | 
-							imagesToImport add: each.
-							self urlFor: each extension: extension ]))
+		with: ''Full team from back'' -> ''{3}''' format: (aCollection collect: [ :each | self urlFor: each extension: extension ]))
 		classified: 'accessing'.
 	self
 		compile:
@@ -32,7 +26,6 @@ BBGTeamPage class >> extension: extension team: aCollection groups: aCollection3
 		'.
 					aCollection3
 						keysAndValuesDo: [ :grp :img | 
-							imagesToImport add: img.
 							s
 								nextPutAll: 'with: ''';
 								nextPutAll: grp;
@@ -55,9 +48,6 @@ BBGTeamPage class >> extension: extension team: aCollection groups: aCollection3
 		'.
 					aCollection4
 						keysAndValuesDo: [ :img1 :img2 | 
-							imagesToImport
-								add: img1;
-								add: img2.
 							s
 								nextPutAll: 'at: ''Player ';
 								print: count;
@@ -71,8 +61,7 @@ BBGTeamPage class >> extension: extension team: aCollection groups: aCollection3
 								tab.
 							count := count + 1 ].
 					s << 'yourself' ])
-		classified: 'accessing'.
-	imagesToImport do: [ :img | BBGLibrary addFileAt: (self urlFor: img extension: extension) ]
+		classified: 'accessing'
 ]
 
 { #category : #testing }
@@ -96,11 +85,11 @@ BBGTeamPage >> renderGalleryTitled: aString img: anImage back: anotherImg on: ht
 		class: 'gallery gallery2';
 		shadow: 6;
 		with: [ html anchor
-				url: (BBGLibrary default urlForFile: anImage);
-				with: [ html image url: (BBGLibrary default urlForFile: anImage) ].
+				url: (self urlOf: anImage);
+				with: [ html image url: (self urlOf: anImage) ].
 			html anchor
-				url: (BBGLibrary default urlForFile: anotherImg);
-				with: [ html image url: (BBGLibrary default urlForFile: anotherImg) ].
+				url: (self urlOf: anotherImg);
+				with: [ html image url: (self urlOf: anotherImg) ].
 			html div
 				class: 'desc';
 				with: aString ]
@@ -112,8 +101,8 @@ BBGTeamPage >> renderGalleryTitled: aString img: anImage on: html [
 		class: 'gallery';
 		shadow: 6;
 		with: [ html anchor
-				url: (BBGLibrary default urlForFile: anImage);
-				with: [ html image url: (BBGLibrary default urlForFile: anImage) ].
+				url: (self urlOf: anImage);
+				with: [ html image url: (self urlOf: anImage) ].
 			html div
 				class: 'desc';
 				with: aString ]
@@ -163,4 +152,9 @@ BBGTeamPage >> teamImages [
 { #category : #accessing }
 BBGTeamPage >> teamPlayers [
 	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+BBGTeamPage >> urlOf: anImage [
+	^ (BBGRoot isDevelopment ifTrue: [ '//localhost:1706/' ] ifFalse: [ '' ]) , 'resources/' , self pageTitle asLowercase , '/' , anImage
 ]

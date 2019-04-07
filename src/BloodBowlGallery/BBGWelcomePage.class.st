@@ -37,7 +37,7 @@ BBGWelcomePage >> renderPageContentOn: html [
 						shadow: 8;
 						with: [ html anchor
 								callback: [ self displayInstanceOf: class ];
-								with: [ html image url: (BBGLibrary default urlForFile: class new teamPlayers anyOne key) ].
+								with: [ html image url: (class new urlOf: class new teamPlayers anyOne key) ].
 							html div
 								class: 'desc';
 								with: class pageName ] ] ]

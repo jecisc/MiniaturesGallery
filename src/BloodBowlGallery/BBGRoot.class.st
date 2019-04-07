@@ -25,12 +25,28 @@ Class {
 		'componentInstances',
 		'footer'
 	],
+	#classVars : [
+		'IsDevelopment'
+	],
 	#category : #'BloodBowlGallery-Core'
 }
 
 { #category : #'instance creation' }
 BBGRoot class >> applicationName [
 	^ 'bloodbowl'
+]
+
+{ #category : #testing }
+BBGRoot class >> beDevelopment [
+	self isDevelopment: true.
+	(ZnServer defaultOn: 1706)
+		logToTranscript;
+		delegate:
+			(ZnStaticFileServerDelegate new
+				prefixFromString: 'resources';
+				directory: StartupPreferencesLoader preferencesGeneralFolder / 'GitRepositories' / 'jecisc' / 'BloodBowlGallery' / 'resources';
+				yourself);
+		start
 ]
 
 { #category : #testing }
@@ -50,6 +66,16 @@ BBGRoot class >> initialize [
 		yourself
 ]
 
+{ #category : #testing }
+BBGRoot class >> isDevelopment [
+	^ IsDevelopment ifNil: [ IsDevelopment := false ]
+]
+
+{ #category : #testing }
+BBGRoot class >> isDevelopment: aBoolean [
+	IsDevelopment := aBoolean
+]
+
 { #category : #'world menu' }
 BBGRoot class >> menuCommandOn: aBuilder [
 	<worldMenu>
@@ -60,16 +86,22 @@ BBGRoot class >> menuCommandOn: aBuilder [
 				iconName: #nautilus;
 				help: 'Open in the default web browser';
 				action: [ self open ].
-				(aBuilder item: #'Import example')
+			(aBuilder item: #'Be develpment')
+				order: 3;
+				iconName: #configuration;
+				action: [ self beDevelopment ].
+			(aBuilder item: #'Import example')
 				order: 4;
 				iconName: #smallHelp;
-				action: [GTPlayground openContents: '"The images need to be in the image directory"
+				action: [ GTPlayground
+						openContents:
+							'"The images need to be in the image directory"
 
 BBGKhemriPage
 	extension: ''JPG''
 	team: #(''1418'' ''1419'' ''1420'') 
 	groups: { ''Tomb Guardians'' -> ''1415'' . ''Blitz-ras and Throw-ras'' -> ''1416'' . ''Skeletons'' -> ''1417'' } asOrderedDictionary
-	players: (((1369 to: 1380) pairsCollect: [ :a :b | a asString -> b asString ]) , ((1395 to: 1414) pairsCollect: [ :a :b | a asString -> b asString ])) asOrderedDictionary'] ]
+	players: (((1369 to: 1380) pairsCollect: [ :a :b | a asString -> b asString ]) , ((1395 to: 1414) pairsCollect: [ :a :b | a asString -> b asString ])) asOrderedDictionary' ] ]
 ]
 
 { #category : #'instance creation' }
