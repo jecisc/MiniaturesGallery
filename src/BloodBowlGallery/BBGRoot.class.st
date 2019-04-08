@@ -230,7 +230,28 @@ BBGRoot >> renderContentOn: html [
 								class: 'blood-bowl-gallery';
 								size: 12;
 								with: [ html render: self componentToDisplay ] ].
-					html render: self footer ] ]
+					html render: self footer ] ].
+	"To make a low res background load first"
+	html image
+		style: 'display: none';
+		url: self class resourcesRoot , 'wallpaper.jpg';
+		id: 'wallpaper'.
+
+	html document
+		addLoadScript:
+			('$("#wallpaper").on("load", function() {
+    $("main").css({
+        "background-image" : "url(' , (self class resourcesRoot , 'wallpaper.jpg')
+				,
+					')"
+    });
+	this.remove();
+}).each(function() {
+  if(this.complete) {
+       // In case the cached image is loaded before the handler is added.
+       $(this).trigger("load"); // For jQuery >= 3.0 
+  }
+});;') js
 ]
 
 { #category : #updating }

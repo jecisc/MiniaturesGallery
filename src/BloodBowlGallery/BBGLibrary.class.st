@@ -26,7 +26,7 @@ BBGLibrary >> projectCss [
     }
 
 main{
-	background-image: url(' , (BBGRoot resourcesRoot , 'wallpaper.jpg') asString
+	background-image: url(' , (BBGRoot resourcesRoot , 'wallpaper-min.jpg') asString
 		,
 			');
     background-size: cover;
