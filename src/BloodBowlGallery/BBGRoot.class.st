@@ -118,6 +118,11 @@ BBGRoot class >> open [
 	WebBrowser openOn: 'http://localhost:' , port asString , '/', self applicationName
 ]
 
+{ #category : #accessing }
+BBGRoot class >> resourcesRoot [
+	^ (self isDevelopment ifTrue: [ '//localhost:1706/' ] ifFalse: [ '/' ]) , 'resources/'
+]
+
 { #category : #hooks }
 BBGRoot >> children [
 	^ { self header. self componentToDisplay. self footer }
