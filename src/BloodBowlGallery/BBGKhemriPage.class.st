@@ -20,7 +20,6 @@ BBGKhemriPage >> teamGroups [
 		with: 'Tomb Guardians' -> 'IMG_1415.JPG'
 		with: 'Blitz-ras and Throw-ras' -> 'IMG_1416.JPG'
 		with: 'Skeletons' -> 'IMG_1417.JPG'
-		
 ]
 
 { #category : #accessing }
