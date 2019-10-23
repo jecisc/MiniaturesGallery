@@ -44,7 +44,7 @@ BBGRoot class >> beDevelopment [
 		delegate:
 			(ZnStaticFileServerDelegate new
 				prefixFromString: 'resources';
-				directory: StartupPreferencesLoader preferencesGeneralFolder / 'GitRepositories' / 'jecisc' / 'BloodBowlGallery' / 'resources';
+				directory: BBGBridge resources;
 				yourself);
 		start
 ]
@@ -120,7 +120,9 @@ BBGRoot class >> open [
 
 { #category : #accessing }
 BBGRoot class >> resourcesRoot [
-	^ (self isDevelopment ifTrue: [ '//localhost:1706/' ] ifFalse: [ '/' ]) , 'resources/'
+	^ (self isDevelopment
+		ifTrue: [ '//localhost:1706/' ]
+		ifFalse: [ BBGBridge root basename surroundedBy: '/' ]) , 'resources/'
 ]
 
 { #category : #hooks }
