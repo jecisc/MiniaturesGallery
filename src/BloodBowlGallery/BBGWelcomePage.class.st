@@ -36,7 +36,7 @@ BBGWelcomePage >> renderPageContentOn: html [
 
 			html div
 				style: 'display: flex;flex-wrap: wrap; justify-content: space-around; align-items: center;';
-				with: [ (BBGTeamPage pages select: [ :each | each teamFolder parent = gameFolder ])
+				with: [ (BBGTeamPage pages select: [ :each | each teamFolder parent asAbsolute canonicalize = gameFolder asAbsolute canonicalize ])
 						do: [ :page | 
 							html div
 								class: 'gallery';

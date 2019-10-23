@@ -39,6 +39,15 @@ BBGTeamPage >> pageName [
 	^ self teamFolder bbgDisplayName
 ]
 
+{ #category : #printing }
+BBGTeamPage >> printOn: aStream [
+	super printOn: aStream.
+	aStream
+		nextPut: $[;
+		nextPutAll: self teamFolder bbgDisplayName;
+		nextPut: $]
+]
+
 { #category : #accessing }
 BBGTeamPage >> priority [
 	^ self teamFolder parent index * 500 + self teamFolder index + 1
