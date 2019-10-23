@@ -7,6 +7,11 @@ Class {
 	#category : #'BloodBowlGallery-Core'
 }
 
+{ #category : #accessing }
+BBGTeamPage class >> games [
+	^ BBGBridge resources directories sortFilesByIndexes
+]
+
 { #category : #testing }
 BBGTeamPage class >> isAbstract [
 	^ self = BBGTeamPage
@@ -26,7 +31,7 @@ BBGTeamPage class >> teamFolder: aString [
 
 { #category : #accessing }
 BBGTeamPage class >> teams [
-	^ BBGBridge resources directories sortFilesByIndexes
+	^ self games flatCollect: [ :folder | folder directories sortFilesByIndexes ]
 ]
 
 { #category : #accessing }
@@ -36,7 +41,7 @@ BBGTeamPage >> pageName [
 
 { #category : #accessing }
 BBGTeamPage >> priority [
-	^ self teamFolder index + 1
+	^ self teamFolder parent index * 500 + self teamFolder index + 1
 ]
 
 { #category : #rendering }
@@ -48,7 +53,7 @@ BBGTeamPage >> renderGalleryFor: aCollectionOfImages inFolderNamed: aString on: 
 		with: [ aCollectionOfImages
 				do: [ :img | 
 					| url |
-					url := self urlOf: aString , '/' , img basename.
+					url := self urlOf: img.
 					html anchor
 						url: url;
 						with: [ html image url: url ] ].
@@ -86,12 +91,12 @@ BBGTeamPage >> teamFolder: anObject [
 
 { #category : #accessing }
 BBGTeamPage >> urlOf: anImage [
-	^ BBGRoot resourcesRoot , self teamFolder basename , '/' , anImage
+	^ BBGRoot resourcesRoot , (anImage relativeTo: BBGBridge resources) pathString
 ]
 
 { #category : #accessing }
 BBGTeamPage >> urlOfMainPlayer [
 	| playersFolder |
-	playersFolder := self teamFolder directories detect: [ :dir | dir basename asLowercase includesSubstring: 'player' ].
-	^ self urlOf: playersFolder basename , '/' , playersFolder files sortFilesByIndexes first basename
+	playersFolder := self teamFolder directories detect: [ :dir | dir basename asLowercase includesSubstring: 'player' ] ifNone: [ ^ '.' asFileReference ].
+	^ self urlOf: playersFolder files sortFilesByIndexes first
 ]
