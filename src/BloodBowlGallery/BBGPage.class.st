@@ -35,6 +35,13 @@ BBGPage class >> pagesToDisplay [
 ]
 
 { #category : #accessing }
+BBGPage class >> pathName [
+	"Use to define the URL name"
+
+	^ self pageName copyWithout: $  
+]
+
+{ #category : #accessing }
 BBGPage class >> priority [
 	^ self subclassResponsibility
 ]
