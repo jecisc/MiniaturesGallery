@@ -86,7 +86,7 @@ BBGTeamPage >> teamFolder: anObject [
 
 { #category : #accessing }
 BBGTeamPage >> urlOf: anImage [
-	^ BBGRoot resourcesRoot , self teamFolder basename asLowercase , '/' , anImage
+	^ BBGRoot resourcesRoot , self teamFolder basename , '/' , anImage
 ]
 
 { #category : #accessing }
