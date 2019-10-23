@@ -25,15 +25,13 @@ BBGPage class >> pageName [
 ]
 
 { #category : #accessing }
-BBGPage class >> pagesToDisplay [
-	^ (self allSubclasses reject: #isAbstract) sorted: #priority ascending
+BBGPage class >> pages [
+	^ { self }
 ]
 
 { #category : #accessing }
-BBGPage class >> pathName [
-	"Use to define the URL name"
-
-	^ self pageName copyWithout: $  
+BBGPage class >> pagesToDisplay [
+	^ (self allSubclasses flatCollect: #pages) sorted: #priority ascending
 ]
 
 { #category : #accessing }
@@ -42,13 +40,20 @@ BBGPage class >> priority [
 ]
 
 { #category : #accessing }
+BBGPage >> pageName [
+	^ self class pageName
+]
+
+{ #category : #accessing }
 BBGPage >> pageTitle [
-	^ self subclassResponsibility
+	^ self pageName
 ]
 
 { #category : #accessing }
 BBGPage >> pathName [
-	^ self class pathName
+	"Use to define the URL name"
+
+	^ self pageName copyWithout: $  
 ]
 
 { #category : #rendering }

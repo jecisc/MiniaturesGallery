@@ -1,160 +1,97 @@
 Class {
 	#name : #BBGTeamPage,
 	#superclass : #BBGPage,
+	#instVars : [
+		'teamFolder'
+	],
 	#category : #'BloodBowlGallery-Core'
 }
-
-{ #category : #import }
-BBGTeamPage class >> extension: extension team: aCollection groups: aCollection3 players: aCollection4 [
-	| count |
-	self
-		compile:
-			('teamImages
-	^ OrderedDictionary
-		with: ''Full team'' -> ''{1}''
-		with: ''Full team from top'' -> ''{2}''
-		with: ''Full team from back'' -> ''{3}''' format: (aCollection collect: [ :each | self urlFor: each extension: extension ]))
-		classified: 'accessing'.
-	self
-		compile:
-			(String
-				streamContents: [ :s | 
-					s
-						<<
-							'teamGroups
-	^ OrderedDictionary
-		'.
-					aCollection3
-						keysAndValuesDo: [ :grp :img | 
-							s
-								nextPutAll: 'with: ''';
-								nextPutAll: grp;
-								nextPutAll: ''' -> ''';
-								nextPutAll: (self urlFor: img extension: extension);
-								nextPut: $';
-								cr;
-								tab;
-								tab ] ])
-		classified: 'accessing'.
-	count := 1.
-	self
-		compile:
-			(String
-				streamContents: [ :s | 
-					s
-						<<
-							'teamPlayers
-	^ OrderedDictionary new
-		'.
-					aCollection4
-						keysAndValuesDo: [ :img1 :img2 | 
-							s
-								nextPutAll: 'at: ''Player ';
-								print: count;
-								nextPutAll: ''' put: (''';
-								nextPutAll: (self urlFor: img1 extension: extension);
-								nextPutAll: ''' -> ''';
-								nextPutAll: (self urlFor: img2 extension: extension);
-								nextPutAll: ''');';
-								cr;
-								tab;
-								tab.
-							count := count + 1 ].
-					s << 'yourself' ])
-		classified: 'accessing'
-]
 
 { #category : #testing }
 BBGTeamPage class >> isAbstract [
 	^ self = BBGTeamPage
 ]
 
-{ #category : #import }
-BBGTeamPage class >> urlFor: each extension: extension [
-	^ 'IMG_' , each , '.' , extension
+{ #category : #accessing }
+BBGTeamPage class >> pages [
+	^ self teams collect: [ :team | self teamFolder: team ]
+]
+
+{ #category : #'instance creation' }
+BBGTeamPage class >> teamFolder: aString [
+	^ self new
+		teamFolder: aString;
+		yourself
 ]
 
 { #category : #accessing }
-BBGTeamPage >> pageTitle [
-	^ self class pageName
+BBGTeamPage class >> teams [
+	^ BBGBridge resources directories sortFilesByIndexes
+]
+
+{ #category : #accessing }
+BBGTeamPage >> pageName [
+	^ self teamFolder bbgDisplayName
+]
+
+{ #category : #accessing }
+BBGTeamPage >> priority [
+	^ self teamFolder index + 1
 ]
 
 { #category : #rendering }
-BBGTeamPage >> renderGalleryTitled: aString img: anImage back: anotherImg on: html [
-	html div
-		class: 'gallery gallery2';
-		shadow: 6;
-		with: [ html anchor
-				url: (self urlOf: anImage);
-				with: [ html image url: (self urlOf: anImage) ].
-			html anchor
-				url: (self urlOf: anotherImg);
-				with: [ html image url: (self urlOf: anotherImg) ].
-			html div
-				class: 'desc';
-				with: aString ]
-]
-
-{ #category : #rendering }
-BBGTeamPage >> renderGalleryTitled: aString img: anImage on: html [
+BBGTeamPage >> renderGalleryFor: aCollectionOfImages inFolderNamed: aString on: html [
 	html div
 		class: 'gallery';
+		class: 'gallery2' if: aCollectionOfImages size > 1;
 		shadow: 6;
-		with: [ html anchor
-				url: (self urlOf: anImage);
-				with: [ html image url: (self urlOf: anImage) ].
+		with: [ aCollectionOfImages
+				do: [ :img | 
+					| url |
+					url := self urlOf: aString , '/' , img basename.
+					html anchor
+						url: url;
+						with: [ html image url: url ] ].
 			html div
 				class: 'desc';
-				with: aString ]
+				with: aCollectionOfImages first bbgDisplayName ]
 ]
 
 { #category : #rendering }
 BBGTeamPage >> renderPageContentOn: html [
+	self teamFolder directories sortFilesByIndexes do: [ :folder | self renderSectionFor: folder on: html ]
+]
+
+{ #category : #rendering }
+BBGTeamPage >> renderSectionFor: aFolder on: html [
 	html heading
 		level2;
 		mdlTypographySubhead;
-		with: 'Team'.
+		with: aFolder bbgDisplayName.
 	html div
 		style: 'display: flex;flex-wrap: wrap;justify-content: space-around; align-items: center;';
-		with: [ self teamImages keysAndValuesDo: [ :title :img | self renderGalleryTitled: title img: img on: html ] ].
-	html heading
-		level2;
-		mdlTypographySubhead;
-		with: 'Positions'.
-	html div
-		style: 'display: flex;flex-wrap: wrap;justify-content: space-around; align-items: center;';
-		with: [ self teamGroups keysAndValuesDo: [ :title :img | self renderGalleryTitled: title img: img on: html ] ].
-	html heading
-		level2;
-		mdlTypographySubhead;
-		with: 'Players'.
-	html div
-		style: 'display: flex;flex-wrap: wrap;justify-content: space-around; align-items: center;';
-		with: [ self teamPlayers
-				keysAndValuesDo: [ :title :imgs | 
-					self
-						renderGalleryTitled: title
-						img: imgs key
-						back: imgs value
-						on: html ] ]
+		with: [ (aFolder files sortFilesByIndexes groupedBy: [ :e | e basename copyUpTo: $_ ])
+				valuesDo: [ :coll | self renderGalleryFor: coll inFolderNamed: aFolder basename on: html ] ]
 ]
 
 { #category : #accessing }
-BBGTeamPage >> teamGroups [
-	^ self subclassResponsibility
+BBGTeamPage >> teamFolder [
+	^ teamFolder
 ]
 
 { #category : #accessing }
-BBGTeamPage >> teamImages [
-	^ self subclassResponsibility
-]
-
-{ #category : #accessing }
-BBGTeamPage >> teamPlayers [
-	^ self subclassResponsibility
+BBGTeamPage >> teamFolder: anObject [
+	teamFolder := anObject
 ]
 
 { #category : #accessing }
 BBGTeamPage >> urlOf: anImage [
-	^ BBGRoot resourcesRoot , self pageTitle asLowercase , '/' , anImage
+	^ BBGRoot resourcesRoot , self teamFolder basename asLowercase , '/' , anImage
+]
+
+{ #category : #accessing }
+BBGTeamPage >> urlOfMainPlayer [
+	| playersFolder |
+	playersFolder := self teamFolder directories detect: [ :dir | dir basename asLowercase includesSubstring: 'player' ].
+	^ self urlOf: playersFolder basename , '/' , playersFolder files sortFilesByIndexes first basename
 ]

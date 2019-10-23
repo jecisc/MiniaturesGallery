@@ -164,7 +164,7 @@ BBGRoot >> defaultHeader [
 
 { #category : #updating }
 BBGRoot >> displayInstanceOf: aComponentClass [
-	self componentToDisplay: (self componentInstances at: aComponentClass ifAbsentPut: [ aComponentClass new ])
+	self componentToDisplay: (aComponentClass isClass ifTrue: [ self componentInstances at: aComponentClass ifAbsentPut: [ aComponentClass new ] ] ifFalse: [ aComponentClass ])
 ]
 
 { #category : #accessing }
