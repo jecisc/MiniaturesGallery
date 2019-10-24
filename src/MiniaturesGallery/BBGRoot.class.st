@@ -57,15 +57,6 @@ BBGRoot class >> canBeRoot [
 { #category : #initialization }
 BBGRoot class >> initialize [
 	self environment at: #WADevelopmentConfiguration ifPresent: [ :class | WAAdmin applicationDefaults removeParent: class instance ].	"Remove development tools."
-	
-	"For compatibility"
-	(WAAdmin register: self asApplicationAt: 'bloodbowl')
-		preferenceAt: #sessionClass put: MGSession;
-		preferenceAt: #trackingStrategy put: WACookieForBrowserIPForCrawlerTrackingStrategy new;
-		addLibrary: JQDeploymentLibrary;
-		addLibrary: MDLLibrary;
-		addLibrary: MGLibrary;
-		yourself.
 
 	^ (WAAdmin register: self asApplicationAt: self applicationName)
 		preferenceAt: #sessionClass put: MGSession;
