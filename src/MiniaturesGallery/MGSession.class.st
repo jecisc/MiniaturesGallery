@@ -2,7 +2,7 @@
 Description
 --------------------
 
-Simple session for the Blood Bowl Gallery. I save the root component to help with the application management. Each components will be able to access the root component via myself.
+Simple session for the Miniatures Gallery. I save the root component to help with the application management. Each components will be able to access the root component via myself.
 
 Internal Representation and Key Implementation Points.
 --------------------
@@ -12,20 +12,20 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #BBGSession,
+	#name : #MGSession,
 	#superclass : #WASession,
 	#instVars : [
 		'rootComponent'
 	],
-	#category : #'BloodBowlGallery-Core'
+	#category : #'MiniaturesGallery-Core'
 }
 
 { #category : #accessing }
-BBGSession >> rootComponent [
+MGSession >> rootComponent [
 	^ rootComponent
 ]
 
 { #category : #accessing }
-BBGSession >> rootComponent: aRootComponent [
+MGSession >> rootComponent: aRootComponent [
 	rootComponent := aRootComponent
 ]

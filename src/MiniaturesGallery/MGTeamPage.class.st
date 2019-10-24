@@ -1,46 +1,46 @@
 Class {
-	#name : #BBGTeamPage,
-	#superclass : #BBGPage,
+	#name : #MGTeamPage,
+	#superclass : #MGPage,
 	#instVars : [
 		'teamFolder'
 	],
-	#category : #'BloodBowlGallery-Core'
+	#category : #'MiniaturesGallery-Core'
 }
 
 { #category : #accessing }
-BBGTeamPage class >> games [
-	^ BBGBridge resources directories sortFilesByIndexes
+MGTeamPage class >> games [
+	^ MGBridge resources directories sortFilesByIndexes
 ]
 
 { #category : #testing }
-BBGTeamPage class >> isAbstract [
-	^ self = BBGTeamPage
+MGTeamPage class >> isAbstract [
+	^ self = MGTeamPage
 ]
 
 { #category : #accessing }
-BBGTeamPage class >> pages [
+MGTeamPage class >> pages [
 	^ self teams collect: [ :team | self teamFolder: team ]
 ]
 
 { #category : #'instance creation' }
-BBGTeamPage class >> teamFolder: aString [
+MGTeamPage class >> teamFolder: aString [
 	^ self new
 		teamFolder: aString;
 		yourself
 ]
 
 { #category : #accessing }
-BBGTeamPage class >> teams [
+MGTeamPage class >> teams [
 	^ self games flatCollect: [ :folder | folder directories sortFilesByIndexes ]
 ]
 
 { #category : #accessing }
-BBGTeamPage >> pageName [
+MGTeamPage >> pageName [
 	^ self teamFolder bbgDisplayName
 ]
 
 { #category : #printing }
-BBGTeamPage >> printOn: aStream [
+MGTeamPage >> printOn: aStream [
 	super printOn: aStream.
 	aStream
 		nextPut: $[;
@@ -49,12 +49,12 @@ BBGTeamPage >> printOn: aStream [
 ]
 
 { #category : #accessing }
-BBGTeamPage >> priority [
+MGTeamPage >> priority [
 	^ self teamFolder parent index * 500 + self teamFolder index + 1
 ]
 
 { #category : #rendering }
-BBGTeamPage >> renderGalleryFor: aCollectionOfImages inFolderNamed: aString on: html [
+MGTeamPage >> renderGalleryFor: aCollectionOfImages inFolderNamed: aString on: html [
 	html div
 		class: 'gallery';
 		class: 'gallery2' if: aCollectionOfImages size > 1;
@@ -72,12 +72,12 @@ BBGTeamPage >> renderGalleryFor: aCollectionOfImages inFolderNamed: aString on: 
 ]
 
 { #category : #rendering }
-BBGTeamPage >> renderPageContentOn: html [
+MGTeamPage >> renderPageContentOn: html [
 	self teamFolder directories sortFilesByIndexes do: [ :folder | self renderSectionFor: folder on: html ]
 ]
 
 { #category : #rendering }
-BBGTeamPage >> renderSectionFor: aFolder on: html [
+MGTeamPage >> renderSectionFor: aFolder on: html [
 	html heading
 		level2;
 		mdlTypographySubhead;
@@ -89,22 +89,22 @@ BBGTeamPage >> renderSectionFor: aFolder on: html [
 ]
 
 { #category : #accessing }
-BBGTeamPage >> teamFolder [
+MGTeamPage >> teamFolder [
 	^ teamFolder
 ]
 
 { #category : #accessing }
-BBGTeamPage >> teamFolder: anObject [
+MGTeamPage >> teamFolder: anObject [
 	teamFolder := anObject
 ]
 
 { #category : #accessing }
-BBGTeamPage >> urlOf: anImage [
-	^ BBGRoot resourcesRoot , (anImage relativeTo: BBGBridge resources) pathString
+MGTeamPage >> urlOf: anImage [
+	^ BBGRoot resourcesRoot , (anImage relativeTo: MGBridge resources) pathString
 ]
 
 { #category : #accessing }
-BBGTeamPage >> urlOfMainPlayer [
+MGTeamPage >> urlOfMainPlayer [
 	| playersFolder |
 	playersFolder := self teamFolder directories detect: [ :dir | dir basename asLowercase includesSubstring: 'player' ] ifNone: [ ^ '.' asFileReference ].
 	^ self urlOf: playersFolder files sortFilesByIndexes first

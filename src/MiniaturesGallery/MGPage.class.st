@@ -7,64 +7,64 @@ I am an abstract component. My subclasses represent the main pages of the applic
 Each page should have a name that will be used in the URLs and a priority for the menus.
 "
 Class {
-	#name : #BBGPage,
-	#superclass : #BBGComponent,
-	#category : #'BloodBowlGallery-Core'
+	#name : #MGPage,
+	#superclass : #MGComponent,
+	#category : #'MiniaturesGallery-Core'
 }
 
 { #category : #testing }
-BBGPage class >> isAbstract [
-	^ self = BBGPage
+MGPage class >> isAbstract [
+	^ self = MGPage
 ]
 
 { #category : #accessing }
-BBGPage class >> pageName [
+MGPage class >> pageName [
 	"Title of the page that will be used in menus and URLs."
 
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-BBGPage class >> pages [
+MGPage class >> pages [
 	^ { self }
 ]
 
 { #category : #accessing }
-BBGPage class >> pagesToDisplay [
+MGPage class >> pagesToDisplay [
 	^ (self allSubclasses flatCollect: #pages) sorted: #priority ascending
 ]
 
 { #category : #accessing }
-BBGPage class >> pathName [
+MGPage class >> pathName [
 	"Use to define the URL name"
 
 	^ self pageName copyWithout: $  
 ]
 
 { #category : #accessing }
-BBGPage class >> priority [
+MGPage class >> priority [
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
-BBGPage >> pageName [
+MGPage >> pageName [
 	^ self class pageName
 ]
 
 { #category : #accessing }
-BBGPage >> pageTitle [
+MGPage >> pageTitle [
 	^ self pageName
 ]
 
 { #category : #accessing }
-BBGPage >> pathName [
+MGPage >> pathName [
 	"Use to define the URL name"
 
 	^ self pageName copyWithout: $  
 ]
 
 { #category : #rendering }
-BBGPage >> renderContentOn: html [
+MGPage >> renderContentOn: html [
 	html div
 		style: 'max-width: 1250px; min-height: 600px; margin: 0 auto; padding: 20px 8px; background-color: rgba(255,255,255,0.95); overflow: auto';
 		with: [ html heading
@@ -75,6 +75,6 @@ BBGPage >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-BBGPage >> renderPageContentOn: html [
+MGPage >> renderPageContentOn: html [
 	self subclassResponsibility
 ]

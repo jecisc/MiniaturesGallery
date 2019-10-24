@@ -1,16 +1,16 @@
 Class {
-	#name : #BBGBridge,
+	#name : #MGBridge,
 	#superclass : #GitBridge,
-	#category : #'BloodBowlGallery-Core'
+	#category : #'MiniaturesGallery-Core'
 }
 
 { #category : #accessing }
-BBGBridge class >> resources [
+MGBridge class >> resources [
 	^ self root / 'resources'
 ]
 
 { #category : #assessing }
-BBGBridge class >> root [
+MGBridge class >> root [
 	^ [ super root ]
 		on: GBRepositoryWithoutLocalRepository
 		do: [ :exception | 

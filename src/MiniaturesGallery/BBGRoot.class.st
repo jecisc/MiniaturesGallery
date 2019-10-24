@@ -2,7 +2,7 @@
 Description
 --------------------
 
-I am the root component of Blood Bowl Gallery. I will contain every components of the application to display.
+I am the root component of Miniatures Gallery. I will contain every components of the application to display.
 
 I have a header and a footer.
  
@@ -18,7 +18,7 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #BBGRoot,
-	#superclass : #BBGComponent,
+	#superclass : #MGComponent,
 	#instVars : [
 		'header',
 		'componentToDisplay',
@@ -28,12 +28,12 @@ Class {
 	#classVars : [
 		'IsDevelopment'
 	],
-	#category : #'BloodBowlGallery-Core'
+	#category : #'MiniaturesGallery-Core'
 }
 
 { #category : #'instance creation' }
 BBGRoot class >> applicationName [
-	^ 'bloodbowl'
+	^ 'miniatures'
 ]
 
 { #category : #testing }
@@ -44,7 +44,7 @@ BBGRoot class >> beDevelopment [
 		delegate:
 			(ZnStaticFileServerDelegate new
 				prefixFromString: 'resources';
-				directory: BBGBridge resources;
+				directory: MGBridge resources;
 				yourself);
 		start
 ]
@@ -57,12 +57,22 @@ BBGRoot class >> canBeRoot [
 { #category : #initialization }
 BBGRoot class >> initialize [
 	self environment at: #WADevelopmentConfiguration ifPresent: [ :class | WAAdmin applicationDefaults removeParent: class instance ].	"Remove development tools."
-	^ (WAAdmin register: self asApplicationAt: self applicationName)
-		preferenceAt: #sessionClass put: BBGSession;
+	
+	"For compatibility"
+	(WAAdmin register: self asApplicationAt: 'bloodbowl')
+		preferenceAt: #sessionClass put: MGSession;
 		preferenceAt: #trackingStrategy put: WACookieForBrowserIPForCrawlerTrackingStrategy new;
 		addLibrary: JQDeploymentLibrary;
 		addLibrary: MDLLibrary;
-		addLibrary: BBGLibrary;
+		addLibrary: MGLibrary;
+		yourself.
+
+	^ (WAAdmin register: self asApplicationAt: self applicationName)
+		preferenceAt: #sessionClass put: MGSession;
+		preferenceAt: #trackingStrategy put: WACookieForBrowserIPForCrawlerTrackingStrategy new;
+		addLibrary: JQDeploymentLibrary;
+		addLibrary: MDLLibrary;
+		addLibrary: MGLibrary;
 		yourself
 ]
 
@@ -122,7 +132,7 @@ BBGRoot class >> open [
 BBGRoot class >> resourcesRoot [
 	^ (self isDevelopment
 		ifTrue: [ '//localhost:1706/' ]
-		ifFalse: [ BBGBridge root basename surroundedBy: '/' ]) , 'resources/'
+		ifFalse: [ MGBridge root basename surroundedBy: '/' ]) , 'resources/'
 ]
 
 { #category : #hooks }
@@ -156,12 +166,12 @@ BBGRoot >> componentToDisplay: aComponent [
 
 { #category : #components }
 BBGRoot >> defaultFooter [
-	^ BBGFooter new
+	^ MGFooter new
 ]
 
 { #category : #components }
 BBGRoot >> defaultHeader [
-	^ BBGHeader new
+	^ MGGHeader new
 ]
 
 { #category : #updating }
@@ -229,7 +239,7 @@ BBGRoot >> renderContentOn: html [
 				with: [ html mdlGrid
 						noSpacing;
 						with: [ html mdlCell
-								class: 'blood-bowl-gallery';
+								class: 'miniatures-gallery';
 								size: 12;
 								with: [ html render: self componentToDisplay ] ].
 					html render: self footer ] ].
@@ -260,7 +270,7 @@ BBGRoot >> renderContentOn: html [
 BBGRoot >> updateRoot: anHtmlRoot [
 	super updateRoot: anHtmlRoot.
 	anHtmlRoot beHtml5.
-	anHtmlRoot title: 'Cyril Ferlicot''s Blood Bowl Gallery'.
+	anHtmlRoot title: 'Miniatures Gallery'.
 	anHtmlRoot meta
 		attributeAt: 'name' put: 'viewport';
 		content: 'width=device-width, initial-scale=1'

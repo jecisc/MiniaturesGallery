@@ -5,29 +5,29 @@ Description
 TODO
 "
 Class {
-	#name : #BBGWelcomePage,
-	#superclass : #BBGPage,
-	#category : #'BloodBowlGallery-Pages'
+	#name : #MGWelcomePage,
+	#superclass : #MGPage,
+	#category : #'MiniaturesGallery-Pages'
 }
 
 { #category : #accessing }
-BBGWelcomePage class >> pageName [
+MGWelcomePage class >> pageName [
 	^ 'Welcome'
 ]
 
 { #category : #accessing }
-BBGWelcomePage class >> priority [
+MGWelcomePage class >> priority [
 	^ 1
 ]
 
 { #category : #accessing }
-BBGWelcomePage >> pageTitle [
+MGWelcomePage >> pageTitle [
 	^ 'Miniatures'
 ]
 
 { #category : #rendering }
-BBGWelcomePage >> renderPageContentOn: html [
-	BBGTeamPage games
+MGWelcomePage >> renderPageContentOn: html [
+	MGTeamPage games
 		do: [ :gameFolder | 
 			html heading
 				level2;
@@ -36,7 +36,7 @@ BBGWelcomePage >> renderPageContentOn: html [
 
 			html div
 				style: 'display: flex;flex-wrap: wrap; justify-content: space-around; align-items: center;';
-				with: [ (BBGTeamPage pages select: [ :each | each teamFolder parent asAbsolute canonicalize = gameFolder asAbsolute canonicalize ])
+				with: [ (MGTeamPage pages select: [ :each | each teamFolder parent asAbsolute canonicalize = gameFolder asAbsolute canonicalize ])
 						do: [ :page | 
 							html div
 								class: 'gallery';

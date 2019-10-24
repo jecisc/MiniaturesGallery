@@ -2,13 +2,13 @@
 TODO
 "
 Class {
-	#name : #BBGLibrary,
+	#name : #MGLibrary,
 	#superclass : #WAFileLibrary,
-	#category : #'BloodBowlGallery-Utils'
+	#category : #'MiniaturesGallery-Utils'
 }
 
 { #category : #uploaded }
-BBGLibrary >> materialpinkgreenminCss [
+MGLibrary >> materialpinkgreenminCss [
 	^ '/**
  * material-design-lite - Material Design Components in CSS, JS and HTML
  * @version v1.3.0
@@ -20,7 +20,7 @@ BBGLibrary >> materialpinkgreenminCss [
 ]
 
 { #category : #css }
-BBGLibrary >> projectCss [
+MGLibrary >> projectCss [
 	^ '.mdl-pagination__current{
         box-shadow: inset 0px -4px 0px 0px rgba(76,175,80,1) !important;
     }
@@ -55,6 +55,6 @@ div.gallery {
 ]
 
 { #category : #accessing }
-BBGLibrary >> selectorsToInclude [
+MGLibrary >> selectorsToInclude [
 	^ #(#projectCss #materialpinkgreenminCss)
 ]

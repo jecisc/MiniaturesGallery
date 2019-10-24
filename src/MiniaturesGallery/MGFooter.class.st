@@ -5,13 +5,13 @@ Description
 A footer for the application with all the useful links.
 "
 Class {
-	#name : #BBGFooter,
-	#superclass : #BBGComponent,
-	#category : #'BloodBowlGallery-Core'
+	#name : #MGFooter,
+	#superclass : #MGComponent,
+	#category : #'MiniaturesGallery-Core'
 }
 
 { #category : #accessing }
-BBGFooter >> links [
+MGFooter >> links [
 	^ OrderedDictionary
 		with: 'Personnal website' -> 'https://ferlicot.fr'
 		with: 'Powered by Seaside' -> 'https://github.com/SeasideSt/Seaside'
@@ -20,7 +20,7 @@ BBGFooter >> links [
 ]
 
 { #category : #rendering }
-BBGFooter >> renderContentOn: html [
+MGFooter >> renderContentOn: html [
 	html mdlMiniFooter: [ html
 				mdlMiniFooterLeftSection: [ html mdlLogo: 'Blood Bowl Gallery'.
 					html

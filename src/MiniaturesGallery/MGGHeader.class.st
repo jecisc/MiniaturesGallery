@@ -5,32 +5,32 @@ Description
 I am the reader of the application.
 "
 Class {
-	#name : #BBGHeader,
-	#superclass : #BBGComponent,
-	#category : #'BloodBowlGallery-Core'
+	#name : #MGGHeader,
+	#superclass : #MGComponent,
+	#category : #'MiniaturesGallery-Core'
 }
 
 { #category : #accessing }
-BBGHeader >> possiblePages [
-	^ BBGPage pagesToDisplay
+MGGHeader >> possiblePages [
+	^ MGPage pagesToDisplay
 ]
 
 { #category : #rendering }
-BBGHeader >> renderContentOn: html [
+MGGHeader >> renderContentOn: html [
 	html
 		mdlLayoutHeader: [ 
 			html
 				mdlLayoutHeaderRow: [ 
 					html mdlNavigationLink
-						callback: [ self displayInstanceOf: BBGWelcomePage ];
+						callback: [ self displayInstanceOf: MGWelcomePage ];
 						with: [ html
-								mdlLayoutTitle: 'Cyril Ferlicot''s Blood Bowl Gallery' ].
+								mdlLayoutTitle: 'Miniatures Gallery' ].
 					html mdlLayoutSpacer ] ].
 	self renderDrawerOn: html
 ]
 
 { #category : #rendering }
-BBGHeader >> renderDrawerOn: html [
+MGGHeader >> renderDrawerOn: html [
 	html
 		mdlLayoutDrawer: [ 
 			html
