@@ -26,7 +26,7 @@ MGLibrary >> projectCss [
     }
 
 main{
-	background-image: url(' , (BBGRoot resourcesRoot , 'wallpaper-min.jpg') asString
+	background-image: url(' , (MGRoot resourcesRoot , 'wallpaper-min.jpg') asString
 		,
 			');
     background-size: cover;

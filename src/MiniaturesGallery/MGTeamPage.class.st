@@ -100,7 +100,7 @@ MGTeamPage >> teamFolder: anObject [
 
 { #category : #accessing }
 MGTeamPage >> urlOf: anImage [
-	^ BBGRoot resourcesRoot , (anImage relativeTo: MGBridge resources) pathString
+	^ MGRoot resourcesRoot , (anImage relativeTo: MGBridge resources) pathString
 ]
 
 { #category : #accessing }
