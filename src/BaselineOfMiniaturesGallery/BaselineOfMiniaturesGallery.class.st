@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfMiniaturesGallery,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfMiniaturesGallery
+	#name : 'BaselineOfMiniaturesGallery',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfMiniaturesGallery',
+	#package : 'BaselineOfMiniaturesGallery'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfMiniaturesGallery >> baseline: spec [
 	<baseline>
 	spec
@@ -18,14 +19,14 @@ BaselineOfMiniaturesGallery >> baseline: spec [
 			spec package: 'MiniaturesGallery' with: [ spec requires: #('MaterialDesignLite' 'GitBridge') ] ]
 ]
 
-{ #category : #dependencies }
+{ #category : 'dependencies' }
 BaselineOfMiniaturesGallery >> gitBridge: spec [
 	spec
     	baseline: 'GitBridge'
     	with: [ spec repository: 'github://jecisc/GitBridge:v1.x.x/src' ]
 ]
 
-{ #category : #dependencies }
+{ #category : 'dependencies' }
 BaselineOfMiniaturesGallery >> materialDesignLite: spec [
 	spec
 		baseline: 'MaterialDesignLite'
@@ -34,7 +35,7 @@ BaselineOfMiniaturesGallery >> materialDesignLite: spec [
 				repository: 'github://DuneSt/MaterialDesignLite:v2.x.x/src' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BaselineOfMiniaturesGallery >> projectClass [
 	^ MetacelloCypressBaselineProject
 ]

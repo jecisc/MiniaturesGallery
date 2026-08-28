@@ -1,1 +1,1 @@
-Package { #name : #MiniaturesGallery }
+Package { #name : 'MiniaturesGallery' }

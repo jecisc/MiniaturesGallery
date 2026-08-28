@@ -5,27 +5,29 @@ Description
 TODO
 "
 Class {
-	#name : #MGWelcomePage,
-	#superclass : #MGPage,
-	#category : #'MiniaturesGallery-Pages'
+	#name : 'MGWelcomePage',
+	#superclass : 'MGPage',
+	#category : 'MiniaturesGallery-Pages',
+	#package : 'MiniaturesGallery',
+	#tag : 'Pages'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGWelcomePage class >> pageName [
 	^ 'Welcome'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGWelcomePage class >> priority [
 	^ 1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGWelcomePage >> pageTitle [
 	^ 'Miniatures'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGWelcomePage >> renderPageContentOn: html [
 	MGTeamPage games
 		do: [ :gameFolder | 

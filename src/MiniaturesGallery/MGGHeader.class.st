@@ -5,17 +5,19 @@ Description
 I am the reader of the application.
 "
 Class {
-	#name : #MGGHeader,
-	#superclass : #MGComponent,
-	#category : #'MiniaturesGallery-Core'
+	#name : 'MGGHeader',
+	#superclass : 'MGComponent',
+	#category : 'MiniaturesGallery-Core',
+	#package : 'MiniaturesGallery',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGGHeader >> possiblePages [
 	^ MGPage pagesToDisplay
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGGHeader >> renderContentOn: html [
 	html
 		mdlLayoutHeader: [ 
@@ -29,7 +31,7 @@ MGGHeader >> renderContentOn: html [
 	self renderDrawerOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGGHeader >> renderDrawerOn: html [
 	html
 		mdlLayoutDrawer: [ 

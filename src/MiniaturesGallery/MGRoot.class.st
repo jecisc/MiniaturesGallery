@@ -17,8 +17,8 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #MGRoot,
-	#superclass : #MGComponent,
+	#name : 'MGRoot',
+	#superclass : 'MGComponent',
 	#instVars : [
 		'header',
 		'componentToDisplay',
@@ -28,15 +28,17 @@ Class {
 	#classVars : [
 		'IsDevelopment'
 	],
-	#category : #'MiniaturesGallery-Core'
+	#category : 'MiniaturesGallery-Core',
+	#package : 'MiniaturesGallery',
+	#tag : 'Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MGRoot class >> applicationName [
 	^ 'miniatures'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MGRoot class >> beDevelopment [
 	self isDevelopment: true.
 	(ZnServer defaultOn: 1706)
@@ -49,12 +51,12 @@ MGRoot class >> beDevelopment [
 		start
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MGRoot class >> canBeRoot [
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MGRoot class >> initialize [
 	| app |
 	self environment at: #WADevelopmentConfiguration ifPresent: [ :class | WAAdmin applicationDefaults removeParent: class instance ].	"Remove development tools."
@@ -73,17 +75,17 @@ MGRoot class >> initialize [
 	^ app
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MGRoot class >> isDevelopment [
 	^ IsDevelopment ifNil: [ IsDevelopment := false ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MGRoot class >> isDevelopment: aBoolean [
 	IsDevelopment := aBoolean
 ]
 
-{ #category : #'world menu' }
+{ #category : 'world menu' }
 MGRoot class >> menuCommandOn: aBuilder [
 	<worldMenu>
 	(aBuilder item: #'Blood Bowl Gallery')
@@ -111,7 +113,7 @@ BBGKhemriPage
 	players: (((1369 to: 1380) pairsCollect: [ :a :b | a asString -> b asString ]) , ((1395 to: 1414) pairsCollect: [ :a :b | a asString -> b asString ])) asOrderedDictionary' ] ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MGRoot class >> open [
 	<script>
 	| port |
@@ -125,78 +127,78 @@ MGRoot class >> open [
 	WebBrowser openOn: 'http://localhost:' , port asString , '/', self applicationName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot class >> resourcesRoot [
 	^ (self isDevelopment
 		ifTrue: [ '//localhost:1706/' ]
 		ifFalse: [ MGBridge root basename surroundedBy: '/' ]) , 'resources/'
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 MGRoot >> children [
 	^ { self header. self componentToDisplay. self footer }
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> componentInstances [
 	"I return a dictionary with browsers as keys and their instances as value if they were instantiated at least once."
 
 	^ componentInstances
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> componentInstances: aDictionary [
 	componentInstances := aDictionary
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> componentToDisplay [
 	"Component instance to display in the application."
 	
 	^ componentToDisplay
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> componentToDisplay: aComponent [
 	componentToDisplay := aComponent
 ]
 
-{ #category : #components }
+{ #category : 'components' }
 MGRoot >> defaultFooter [
 	^ MGFooter new
 ]
 
-{ #category : #components }
+{ #category : 'components' }
 MGRoot >> defaultHeader [
 	^ MGGHeader new
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 MGRoot >> displayInstanceOf: aComponentClass [
 	self componentToDisplay: (aComponentClass isClass ifTrue: [ self componentInstances at: aComponentClass ifAbsentPut: [ aComponentClass new ] ] ifFalse: [ aComponentClass ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> footer [
 	^ footer
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> footer: aComponent [
 	footer := aComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> header [
 	^ header
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGRoot >> header: aComponent [
 	header := aComponent
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 MGRoot >> initialRequest: aRequest [
 	| consumer pageName |
 	super initialRequest: aRequest.
@@ -217,7 +219,7 @@ MGRoot >> initialRequest: aRequest [
 			consumer next ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MGRoot >> initialize [
 	super initialize.
 	self header: self defaultHeader.
@@ -227,7 +229,7 @@ MGRoot >> initialize [
 	self displayInstanceOf: self header possiblePages first
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGRoot >> renderContentOn: html [
 	html
 		mdlLayout: [ html render: self header.
@@ -263,7 +265,7 @@ MGRoot >> renderContentOn: html [
 });;') js
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 MGRoot >> updateRoot: anHtmlRoot [
 	super updateRoot: anHtmlRoot.
 	anHtmlRoot beHtml5.
@@ -273,7 +275,7 @@ MGRoot >> updateRoot: anHtmlRoot [
 		content: 'width=device-width, initial-scale=1'
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 MGRoot >> updateUrl: aUrl [
 	super updateUrl: aUrl.
 	aUrl addToPath: (self componentToDisplay pathName)

@@ -5,12 +5,14 @@ Description
 A footer for the application with all the useful links.
 "
 Class {
-	#name : #MGFooter,
-	#superclass : #MGComponent,
-	#category : #'MiniaturesGallery-Core'
+	#name : 'MGFooter',
+	#superclass : 'MGComponent',
+	#category : 'MiniaturesGallery-Core',
+	#package : 'MiniaturesGallery',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGFooter >> links [
 	^ OrderedDictionary
 		with: 'Personnal website' -> 'https://ferlicot.fr'
@@ -19,7 +21,7 @@ MGFooter >> links [
 		with: 'Berserk elf' -> 'http://theberserkelf.over-blog.com/'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGFooter >> renderContentOn: html [
 	html mdlMiniFooter: [ html
 				mdlMiniFooterLeftSection: [ html mdlLogo: 'Blood Bowl Gallery'.

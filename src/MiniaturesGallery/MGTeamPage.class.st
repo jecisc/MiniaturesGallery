@@ -1,45 +1,47 @@
 Class {
-	#name : #MGTeamPage,
-	#superclass : #MGPage,
+	#name : 'MGTeamPage',
+	#superclass : 'MGPage',
 	#instVars : [
 		'teamFolder'
 	],
-	#category : #'MiniaturesGallery-Core'
+	#category : 'MiniaturesGallery-Core',
+	#package : 'MiniaturesGallery',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage class >> games [
 	^ MGBridge resources directories sortFilesByIndexes
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MGTeamPage class >> isAbstract [
 	^ self = MGTeamPage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage class >> pages [
 	^ self teams collect: [ :team | self teamFolder: team ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MGTeamPage class >> teamFolder: aString [
 	^ self new
 		teamFolder: aString;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage class >> teams [
 	^ self games flatCollect: [ :folder | folder directories sortFilesByIndexes ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage >> pageName [
 	^ self teamFolder bbgDisplayName
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 MGTeamPage >> printOn: aStream [
 	super printOn: aStream.
 	aStream
@@ -48,12 +50,12 @@ MGTeamPage >> printOn: aStream [
 		nextPut: $]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage >> priority [
 	^ self teamFolder parent index * 500 + self teamFolder index + 1
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGTeamPage >> renderGalleryFor: aCollectionOfImages inFolderNamed: aString on: html [
 	html div
 		class: 'gallery';
@@ -71,12 +73,12 @@ MGTeamPage >> renderGalleryFor: aCollectionOfImages inFolderNamed: aString on: h
 				with: aCollectionOfImages first bbgDisplayName ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGTeamPage >> renderPageContentOn: html [
 	self teamFolder directories sortFilesByIndexes do: [ :folder | self renderSectionFor: folder on: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MGTeamPage >> renderSectionFor: aFolder on: html [
 	html heading
 		level2;
@@ -88,22 +90,22 @@ MGTeamPage >> renderSectionFor: aFolder on: html [
 				valuesDo: [ :coll | self renderGalleryFor: coll inFolderNamed: aFolder basename on: html ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage >> teamFolder [
 	^ teamFolder
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage >> teamFolder: anObject [
 	teamFolder := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage >> urlOf: anImage [
 	^ MGRoot resourcesRoot , (anImage relativeTo: MGBridge resources) pathString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGTeamPage >> urlOfMainPlayer [
 	| playersFolder |
 	playersFolder := self teamFolder directories detect: [ :dir | dir basename asLowercase includesSubstring: 'player' ] ifNone: [ ^ '.' asFileReference ].

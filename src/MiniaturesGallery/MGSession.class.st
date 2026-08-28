@@ -12,20 +12,22 @@ Internal Representation and Key Implementation Points.
 
 "
 Class {
-	#name : #MGSession,
-	#superclass : #WASession,
+	#name : 'MGSession',
+	#superclass : 'WASession',
 	#instVars : [
 		'rootComponent'
 	],
-	#category : #'MiniaturesGallery-Core'
+	#category : 'MiniaturesGallery-Core',
+	#package : 'MiniaturesGallery',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGSession >> rootComponent [
 	^ rootComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGSession >> rootComponent: aRootComponent [
 	rootComponent := aRootComponent
 ]

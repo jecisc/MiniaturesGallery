@@ -1,11 +1,11 @@
-Extension { #name : #AbstractFileReference }
+Extension { #name : 'AbstractFileReference' }
 
-{ #category : #'*MiniaturesGallery' }
+{ #category : '*MiniaturesGallery' }
 AbstractFileReference >> bbgDisplayName [
 	^ (self basenameWithoutExtension copyWithRegex: '^[0-9]+_*' matchesReplacedWith: '') copyReplaceAll: '-' with: ' '
 ]
 
-{ #category : #'*MiniaturesGallery' }
+{ #category : '*MiniaturesGallery' }
 AbstractFileReference >> index [
 	^ (self basename copyUpTo: $_) asNumber
 ]

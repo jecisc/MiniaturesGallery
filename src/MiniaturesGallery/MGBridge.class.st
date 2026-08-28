@@ -1,15 +1,17 @@
 Class {
-	#name : #MGBridge,
-	#superclass : #GitBridge,
-	#category : #'MiniaturesGallery-Core'
+	#name : 'MGBridge',
+	#superclass : 'GitBridge',
+	#category : 'MiniaturesGallery-Core',
+	#package : 'MiniaturesGallery',
+	#tag : 'Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MGBridge class >> resources [
 	^ self root / 'resources'
 ]
 
-{ #category : #assessing }
+{ #category : 'assessing' }
 MGBridge class >> root [
 	^ [ super root ]
 		on: GBRepositoryWithoutLocalRepository
