@@ -6,6 +6,13 @@ Class {
 	#tag : 'Core'
 }
 
+{ #category : 'class initialization' }
+MGBridge class >> initialize [
+
+	SessionManager default registerUserClassNamed: self name.
+	self startUp: true
+]
+
 { #category : 'accessing' }
 MGBridge class >> resources [
 	^ self root / 'resources'
@@ -22,4 +29,13 @@ MGBridge class >> root [
 					self icebergRepository location: dir.
 					super root ]
 				ifNone: [ exception pass ] ]
+]
+
+{ #category : 'class initialization' }
+MGBridge class >> startUp: isImageStarting [
+
+	isImageStarting ifTrue: [
+			IceRepository registry
+				detect: [ :repository | repository name = #MiniaturesGallery ]
+				ifFound: [ :repository | repository isMissing ifTrue: [ FileLocator imageDirectory asFileReference / 'MiniatureGallery' ] ] ]
 ]
