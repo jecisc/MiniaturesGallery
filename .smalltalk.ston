@@ -2,7 +2,8 @@ SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'MiniaturesGallery',
-      #directory : 'src'
+      #directory : 'src',
+      #registerInIceberg : true
     }
   ],  
   #testing : {
