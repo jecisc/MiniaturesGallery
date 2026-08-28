@@ -40,12 +40,7 @@ MGWelcomePage >> renderPageContentOn: html [
 				html div
 					style: 'display: flex;flex-wrap: wrap; justify-content: space-around; align-items: center;';
 					with: [
-							'Hello' traceCr.
-							MGTeamPage pages asString traceCr.
-							(MGTeamPage pages select: [ :each |
-										 each teamFolder parent asAbsolute pathString traceCr.
-										 gameFolder asAbsolute pathString traceCr.
-										 each teamFolder parent asAbsolute pathString = gameFolder asAbsolute pathString ]) do: [ :page |
+							(MGTeamPage pages select: [ :each | each teamFolder parent asAbsolute pathString = gameFolder asAbsolute pathString ]) do: [ :page |
 										html div
 											class: 'gallery';
 											style: 'max-width: 30%';
