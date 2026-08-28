@@ -42,7 +42,10 @@ MGWelcomePage >> renderPageContentOn: html [
 					with: [
 							'Hello' traceCr.
 							MGTeamPage pages asString traceCr.
-							(MGTeamPage pages select: [ :each | each teamFolder parent asAbsolute canonicalize = gameFolder asAbsolute canonicalize ]) do: [ :page |
+							(MGTeamPage pages select: [ :each |
+										 each teamFolder parent asAbsolute canonicalize traceCr.
+										 gameFolder asAbsolute canonicalize traceCr.
+										 each teamFolder parent asAbsolute canonicalize = gameFolder asAbsolute canonicalize ]) do: [ :page |
 										html div
 											class: 'gallery';
 											style: 'max-width: 30%';
